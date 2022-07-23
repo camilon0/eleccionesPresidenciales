@@ -18,9 +18,9 @@ public class CtlCandidato {
         
     }
     
-    public boolean agregarCandidato(ClsCandidato candidato){
+    public boolean AgregarCandidato(ClsCandidato candidato){
        
-        boolean respuesta = this.modelo.agregarCandidato(candidato);
+        ClsMensaje respuesta = this.modelo.agregarCandidato(candidato);
         return respuesta;
      
     }

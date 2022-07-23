@@ -242,7 +242,7 @@ public class FrameGestorCandidato extends javax.swing.JFrame {
         
         ClsCandidato candidato = new ClsCandidato(partido, "", numeroCedula, nombre, telefono, correo);
         
-        this.controlador.agregarCandidato(candidato);
+        ClsMensaje respuesta = this.controlador.AgregarCandidato(candidato);
        
     }//GEN-LAST:event_botonAgregarActionPerformed
 
