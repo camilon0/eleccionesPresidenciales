@@ -10,7 +10,7 @@ import Clases.ClsJdbc;
  *
  * @author Usuario
  */
-public class Elecciones {
+public class Elecciones1 {
     
     public static void main(String[] args){
         System.out.println("Hola mundo");

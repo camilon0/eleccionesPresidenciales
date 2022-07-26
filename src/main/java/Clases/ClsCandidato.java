@@ -8,7 +8,7 @@ public class ClsCandidato extends ClsPersona {
 	private String ciudadOrigen;
 	private String descripcion;
 	private String mensajeCamapania;
-	private LinkedList<String> propuestas;
+	private LinkedList<ClsPropuesta> propuestas;
 
     public ClsCandidato(String partidoPolitico, String descripcion, String numeroDocumento, String nombre, String telefono, String correo) {
         super(numeroDocumento, nombre, telefono, correo);
@@ -40,7 +40,13 @@ public class ClsCandidato extends ClsPersona {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-	
-        
+    
+    public LinkedList<ClsPropuesta> getPropuestas() {
+        return propuestas;
+    }
+    
+    public void setPropuestas(LinkedList<ClsPropuesta> propuestas) {
+        this.propuestas = propuestas;
+    }    
         
 }	
