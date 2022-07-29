@@ -2,7 +2,6 @@ package Controladores;
 
 import Clases.ClsCandidato;
 import Clases.ClsMensaje;
-import Clases.ClsPropuesta;
 import Modelos.MdlCandidato;
 import java.util.LinkedList;
 
@@ -48,20 +47,5 @@ public class CtlCandidato {
         return this.modelo.ObtenerCandidatos();
         
     }
- public LinkedList<ClsPropuesta> ObtenerPropuestas(String idCandidato) {
-
-        return this.modelo.ObtenerPropuestas(idCandidato);
-
-    }
-    
-    
-    
-    
-     public ClsMensaje AgregarPropuesta(ClsPropuesta propuesta) {
-
-        ClsMensaje respuesta = this.modelo.AgregarPropuesta(propuesta);
-        return respuesta;
-    }
-
-
+  
 }

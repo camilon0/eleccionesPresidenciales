@@ -3,7 +3,7 @@ package Modelos;
 import Clases.ClsCandidato;
 import Clases.ClsJdbc;
 import Clases.ClsMensaje;
-import Clases.ClsPropuesta;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -24,7 +24,7 @@ public class MdlCandidato {
 
         try {
 
-            String sql = "INSERT INTO tbl_candidatos VALUES( ?, ?, ?, ?, ?, ?, ?, NULL)";
+            String sql = "INSERT INTO tbl_candidatos VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement sentencia = this.jdbc.conexion.prepareStatement(sql);
             sentencia.setString(1, candidato.getNumeroDocumento());
@@ -34,6 +34,8 @@ public class MdlCandidato {
             sentencia.setString(5, candidato.getPartidoPolitico());
             sentencia.setString(6, candidato.getCiudadOrigen());
             sentencia.setString(7, candidato.getDescripcion());
+            sentencia.setString(8, candidato.getMensajeCampania());
+            sentencia.setString(9, candidato.getPropuestas());
 
             int resultado = sentencia.executeUpdate();
 
@@ -56,56 +58,24 @@ public class MdlCandidato {
         }
 
     }
-    public ClsMensaje AgregarPropuesta(ClsPropuesta propuesta) {
-
-        ClsMensaje mensaje = new ClsMensaje();
-
-        try {
-
-            String sql = "INSERT INTO tbl_propuestas (id_candidato, fecha_creacion,"
-                    + " descripcion, sector) VALUES ( ?, now(), ?, ?)";
-
-            PreparedStatement sentencia = this.jdbc.conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            sentencia.setString(1, propuesta.getIdCandidato());
-            sentencia.setString(2, propuesta.getDescripcion());
-            sentencia.setString(3, propuesta.getSector());
-
-            int resultado = sentencia.executeUpdate();
-
-            if (resultado >= 1) {
-                mensaje.CambiarMensaje(mensaje.OK, "Has agregado una propuesta");
-
-                ResultSet rs = sentencia.getGeneratedKeys();
-                if (rs.next()) {
-                    mensaje.setData(rs.getString(1) + "");
-                }
-
-            } else {
-
-                mensaje.CambiarMensaje(mensaje.ERROR, "Error no encontrado");
-            }
-
-            return mensaje;
-
-        } catch (Exception e) {
-            mensaje.CambiarMensaje(mensaje.ERROR, "Excepción: " + e.getMessage());
-            return mensaje;
-        }
-
-    }
+    
     public ClsMensaje ActualizarCandidato(ClsCandidato candidato) {
 
         ClsMensaje mensaje = new ClsMensaje();
 
         try {
 
-            String sql = "UPDATE tbl_candidatos SET nombre = ?, descripcion = ?, telefono = ? WHERE id_candidato = ? ";
+            String sql = "UPDATE tbl_candidatos SET nombre = ?, telefono = ?, correo = ?, ciudad_origen = ?, descripcion = ?, mensaje_campania = ?, propuestas = ?  WHERE id_candidato = ? ";
 
             PreparedStatement sentencia = this.jdbc.conexion.prepareStatement(sql);
             sentencia.setString(1, candidato.getNombre());
-            sentencia.setString(2, candidato.getDescripcion());
-            sentencia.setString(3, candidato.getTelefono());
-            sentencia.setString(4, candidato.getNumeroDocumento());
+            sentencia.setString(2, candidato.getTelefono());
+            sentencia.setString(3, candidato.getCorreo());
+            sentencia.setString(4, candidato.getCiudadOrigen()); 
+            sentencia.setString(5, candidato.getDescripcion()); 
+            sentencia.setString(6, candidato.getMensajeCampania()); 
+            sentencia.setString(7, candidato.getPropuestas());
+            sentencia.setString(8, candidato.getNumeroDocumento());
 
             int resultado = sentencia.executeUpdate();
 
@@ -164,38 +134,7 @@ public ClsMensaje EliminarCandidato(String idCandidato){
         }
 
     }
-    public LinkedList<ClsPropuesta> ObtenerPropuestas(String idCandidato) {
-
-        try {
-
-            LinkedList<ClsPropuesta> listaPropuestas = new LinkedList<>();
-
-            String sql = "SELECT * FROM tbl_propuestas WHERE id_candidato = " + idCandidato;
-            PreparedStatement sentencia = this.jdbc.conexion.prepareStatement(sql);
-            ResultSet resultados = sentencia.executeQuery();
-
-            while (resultados.next()) {
-
-                String id = resultados.getString("id_propuesta");
-                String fechaCreacion = resultados.getString("fecha_creacion");
-                String descripcion = resultados.getString("descripcion");
-                String sector = resultados.getString("sector");
-
-                ClsPropuesta propuesta = new ClsPropuesta(idCandidato, id, sector, descripcion, fechaCreacion);
-
-                listaPropuestas.add(propuesta);
-
-            }
-
-            return listaPropuestas;
-
-        } catch (Exception e) {
-
-            System.out.println("Uy error" + e.getMessage());
-            return null;
-        }
-
-    }
+    
     
     public LinkedList<ClsCandidato> ObtenerCandidatos() {
 
@@ -214,8 +153,12 @@ public ClsMensaje EliminarCandidato(String idCandidato){
                 String nombre = resultados.getString("nombre");
                 String telefono = resultados.getString("telefono");
                 String correo = resultados.getString("correo");
+                String propuestas = resultados.getString("propuestas");
+                String ciudadOrigen = resultados.getString("ciudad_origen");
+                String mensajeCampania = resultados.getString("mensaje_campania");
+                
 
-                ClsCandidato candi = new ClsCandidato(partidoPolitico, descripcion, numeroDocumento, nombre, telefono, correo);
+                ClsCandidato candi = new ClsCandidato(partidoPolitico, ciudadOrigen, descripcion, mensajeCampania, propuestas, numeroDocumento, nombre, telefono, correo);
 
                 listaCandidatos.add(candi);
             }

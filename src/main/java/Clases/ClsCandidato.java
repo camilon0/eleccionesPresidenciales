@@ -1,20 +1,21 @@
 package Clases;
 
-import java.util.LinkedList;
-
-public class ClsCandidato extends ClsPersona {
+public class ClsCandidato extends ClsVotante {
 	
 	private String partidoPolitico;
 	private String ciudadOrigen;
 	private String descripcion;
-	private String mensajeCamapania;
-	private LinkedList<ClsPropuesta> propuestas;
+	private String mensajeCampania;
+	private String propuestas;
+        private int numVotos = 0;
 
-    public ClsCandidato(String partidoPolitico, String descripcion, String numeroDocumento, String nombre, String telefono, String correo) {
+    public ClsCandidato(String partidoPolitico, String ciudadOrigen, String descripcion, String mensajeCampania, String propuestas, String numeroDocumento, String nombre, String telefono, String correo) {
         super(numeroDocumento, nombre, telefono, correo);
         this.partidoPolitico = partidoPolitico;
+        this.ciudadOrigen = ciudadOrigen;
         this.descripcion = descripcion;
-        this.propuestas = new LinkedList<>();
+        this.mensajeCampania = mensajeCampania;
+        this.propuestas = propuestas;
     }
 
     public String getPartidoPolitico() {
@@ -40,13 +41,35 @@ public class ClsCandidato extends ClsPersona {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
-    public LinkedList<ClsPropuesta> getPropuestas() {
+
+    public String getMensajeCampania() {
+        return mensajeCampania;
+    }
+
+    public void setMensajeCampania(String mensajeCampania) {
+        this.mensajeCampania = mensajeCampania;
+    }
+
+    public String getPropuestas() {
         return propuestas;
     }
-    
-    public void setPropuestas(LinkedList<ClsPropuesta> propuestas) {
+
+    public void setPropuestas(String propuestas) {
         this.propuestas = propuestas;
-    }    
-        
+    }
+
+    public int getNumVotos() {
+        return numVotos;
+    }
+
+    public void setNumVotos(int numVotos) {
+        this.numVotos = numVotos;
+    }
+
+    public void ActualizarVotos(){
+        int sumaVotos = this.numVotos;
+        sumaVotos ++;
+        setNumVotos(sumaVotos);
+    }
+     
 }	

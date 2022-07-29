@@ -91,7 +91,7 @@ public class FrameElecciones extends javax.swing.JFrame {
         comboCandidato = new javax.swing.JComboBox<>();
         botonAsociarCandidato = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        botonVolver = new javax.swing.JButton();
+        botonVolverE = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -223,6 +223,11 @@ public class FrameElecciones extends javax.swing.JFrame {
         botonCerrarEleccion.setText("Cerrar");
 
         botonEliminarCandidato.setText("Eliminar");
+        botonEliminarCandidato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarCandidatoActionPerformed(evt);
+            }
+        });
 
         botonEditar.setText("Editar");
 
@@ -233,6 +238,11 @@ public class FrameElecciones extends javax.swing.JFrame {
         jLabel7.setText("Candidato");
 
         comboCandidato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboCandidato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboCandidatoActionPerformed(evt);
+            }
+        });
 
         botonAsociarCandidato.setText("Asociar");
         botonAsociarCandidato.addActionListener(new java.awt.event.ActionListener() {
@@ -268,7 +278,12 @@ public class FrameElecciones extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("ELECCIONES");
 
-        botonVolver.setText("Volver");
+        botonVolverE.setText("Volver");
+        botonVolverE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVolverEActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -306,7 +321,7 @@ public class FrameElecciones extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(botonVolver)))
+                                .addComponent(botonVolverE)))
                         .addGap(0, 6, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -314,7 +329,7 @@ public class FrameElecciones extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(botonVolver))
+                    .addComponent(botonVolverE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -328,18 +343,18 @@ public class FrameElecciones extends javax.swing.JFrame {
                         .addComponent(botonCerrarEleccion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botonEditar)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel2))
                             .addComponent(botonEliminarCandidato))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -361,7 +376,7 @@ public class FrameElecciones extends javax.swing.JFrame {
         String[] partesFecha = fechaInicio.split("-", 2);
         int idEleccion = Integer.parseInt(partesFecha[0]);
 
-        ClsEleccion eleccion = new ClsEleccion(idEleccion, nombre, tipo, fechaInicio, fechaFin, "creado");
+        ClsEleccion eleccion = new ClsEleccion(idEleccion, nombre, tipo, fechaInicio, fechaFin, "creado", "ganador");
 
         ClsMensaje respuesta = this.controladorEleccion.AgregarEleccion(eleccion);
 
@@ -381,10 +396,15 @@ public class FrameElecciones extends javax.swing.JFrame {
         if (mensaje.getTipo().equals(mensaje.OK)) {
             this.ObtenerElecciones();
         }
-
+        
         JOptionPane.showMessageDialog(rootPane, mensaje.getDescripcion());
     }//GEN-LAST:event_botonEliminarActionPerformed
+        public void ObtenerElecciones() {
 
+        this.elecciones = this.controladorEleccion.ObtenerElecciones();
+        this.ActualizarTabla(this.elecciones);
+
+    }
     private void botonAsociarCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAsociarCandidatoActionPerformed
         try {
             int column = 0;
@@ -423,13 +443,20 @@ public class FrameElecciones extends javax.swing.JFrame {
     private void campoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoNombreActionPerformed
+
+    private void botonVolverEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverEActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botonVolverEActionPerformed
+
+    private void comboCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCandidatoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboCandidatoActionPerformed
+
+    private void botonEliminarCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarCandidatoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonEliminarCandidatoActionPerformed
     
-    public void ObtenerElecciones() {
-
-        this.elecciones = this.controladorEleccion.ObtenerElecciones();
-        this.ActualizarTabla(this.elecciones);
-
-    }
+    
     
     public void ActualizarTabla(LinkedList<ClsEleccion> lista) {
 
@@ -516,7 +543,7 @@ public class FrameElecciones extends javax.swing.JFrame {
     private javax.swing.JButton botonEditar;
     private javax.swing.JButton botonEliminar;
     private javax.swing.JButton botonEliminarCandidato;
-    private javax.swing.JButton botonVolver;
+    private javax.swing.JButton botonVolverE;
     private com.toedter.calendar.JDateChooser campoFechaFin;
     private com.toedter.calendar.JDateChooser campoFechaInicio;
     private javax.swing.JTextField campoNombre;

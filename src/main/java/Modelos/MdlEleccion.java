@@ -80,7 +80,7 @@ public class MdlEleccion {
                 String estado = resultados.getString("estado");
                 String ganador = resultados.getString("ganador");
 
-                ClsEleccion eleccion = new ClsEleccion(idEleccion, nombre, tipo, fechaInicio, fechaFin, estado);
+                ClsEleccion eleccion = new ClsEleccion(idEleccion, nombre, tipo, fechaInicio, fechaFin, estado, ganador);
                 eleccion.setGanador(ganador);
 
                 listaElecciones.add(eleccion);
@@ -119,8 +119,11 @@ public class MdlEleccion {
                 String nombre = resultados.getString("nombre");
                 String telefono = resultados.getString("telefono");
                 String correo = resultados.getString("correo");
-
-                ClsCandidato candi = new ClsCandidato(partidoPolitico, descripcion, numeroDocumento, nombre, telefono, correo);
+                String propuestas = resultados.getString("propuestas");
+                String ciudadOrigen = resultados.getString("ciudad_origen");
+                String mensajeCampania = resultados.getString("mensaje_campania");
+                
+                ClsCandidato candi = new ClsCandidato(partidoPolitico, ciudadOrigen, descripcion, mensajeCampania, propuestas, numeroDocumento, nombre, telefono, correo);
 
                 listaCandidatos.add(candi);
 

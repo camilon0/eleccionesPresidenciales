@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Clases;
 
 /**
@@ -17,13 +13,14 @@ public class ClsEleccion {
     private String estado;
     private String ganador;
 
-    public ClsEleccion(int idEleccion, String nombre, String tipo, String fechaInicio, String fechaFin, String estado) {
+    public ClsEleccion(int idEleccion, String nombre, String tipo, String fechaInicio, String fechaFin, String estado, String ganador) {
         this.idEleccion = idEleccion;
         this.nombre = nombre;
         this.tipo = tipo;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.estado = estado;
+        this.ganador = ganador;
     }
 
     public String getEstado() {
@@ -81,8 +78,5 @@ public class ClsEleccion {
     public void setGanador(String ganador) {
         this.ganador = ganador;
     }
-    
-    
-    
     
 }

@@ -1,19 +1,25 @@
 
 package Clases;
 
-public class ClsPersona {
+public class ClsVotante {
 	
 	private String numeroDocumento;
 	private String nombre;
 	private String telefono;
 	private String correo;
 
-    public ClsPersona(String numeroDocumento, String nombre, String telefono, String correo) {
+    public ClsVotante() {
+    }
+        
+    
+
+    public ClsVotante(String numeroDocumento, String nombre, String telefono, String correo) {
         this.numeroDocumento = numeroDocumento;
         this.nombre = nombre;
         this.telefono = telefono;
         this.correo = correo;
     }
+    
 
     public String getNumeroDocumento() {
         return numeroDocumento;

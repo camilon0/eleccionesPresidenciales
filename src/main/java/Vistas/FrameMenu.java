@@ -28,8 +28,8 @@ public class FrameMenu extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         botonCandidatos = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        botonRegistroVotantes = new javax.swing.JButton();
+        botonVotar = new javax.swing.JButton();
         botonGestionElecciones = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,14 +46,19 @@ public class FrameMenu extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(102, 102, 255));
-        jButton2.setText("Regristro Votantes");
-
-        jButton3.setBackground(new java.awt.Color(204, 204, 255));
-        jButton3.setText("Votar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        botonRegistroVotantes.setBackground(new java.awt.Color(102, 102, 255));
+        botonRegistroVotantes.setText("Regristro Votantes");
+        botonRegistroVotantes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                botonRegistroVotantesActionPerformed(evt);
+            }
+        });
+
+        botonVotar.setBackground(new java.awt.Color(204, 204, 255));
+        botonVotar.setText("Votar");
+        botonVotar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVotarActionPerformed(evt);
             }
         });
 
@@ -80,10 +85,10 @@ public class FrameMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonRegistroVotantes, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonVotar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(54, 54, 54))))
         );
         layout.setVerticalGroup(
@@ -94,10 +99,10 @@ public class FrameMenu extends javax.swing.JFrame {
                 .addGap(62, 62, 62)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonCandidatos, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botonRegistroVotantes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonVotar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonGestionElecciones, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57))
         );
@@ -105,11 +110,16 @@ public class FrameMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void botonVotarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVotarActionPerformed
+        FrameVotar gestorVotos = new FrameVotar();
+        
+        gestorVotos.setLocationRelativeTo(this);
+        
+        gestorVotos.setVisible(true);
+    }//GEN-LAST:event_botonVotarActionPerformed
 
     private void botonCandidatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCandidatosActionPerformed
+        
         FrameGestorCandidato gestorCandidato = new FrameGestorCandidato();
         
         gestorCandidato.setLocationRelativeTo(this);
@@ -124,6 +134,14 @@ public class FrameMenu extends javax.swing.JFrame {
         gestorElecciones.setLocationRelativeTo(this);
         gestorElecciones.setVisible(true);
     }//GEN-LAST:event_botonGestionEleccionesActionPerformed
+
+    private void botonRegistroVotantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistroVotantesActionPerformed
+        FrameGestionVotante gestionVotante = new FrameGestionVotante();
+        
+        gestionVotante.setLocationRelativeTo(this);
+        
+        gestionVotante.setVisible(true);
+    }//GEN-LAST:event_botonRegistroVotantesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,8 +182,8 @@ public class FrameMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCandidatos;
     private javax.swing.JButton botonGestionElecciones;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton botonRegistroVotantes;
+    private javax.swing.JButton botonVotar;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
