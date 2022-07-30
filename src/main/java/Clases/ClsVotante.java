@@ -8,11 +8,6 @@ public class ClsVotante {
 	private String telefono;
 	private String correo;
 
-    public ClsVotante() {
-    }
-        
-    
-
     public ClsVotante(String numeroDocumento, String nombre, String telefono, String correo) {
         this.numeroDocumento = numeroDocumento;
         this.nombre = nombre;

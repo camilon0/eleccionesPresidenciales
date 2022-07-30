@@ -47,5 +47,13 @@ public class CtlCandidato {
         return this.modelo.ObtenerCandidatos();
         
     }
+    
+    public ClsMensaje Votos(String candidato, String elecciones, String votante){
+       
+        ClsMensaje respuesta = this.modelo.Votos(candidato,elecciones,votante);
+        
+        return respuesta;
+     
+    }
   
 }

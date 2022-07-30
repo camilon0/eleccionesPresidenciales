@@ -6,9 +6,11 @@
 package Vistas;
 
 import Clases.ClsCandidato;
+import Clases.ClsEleccion;
 import Clases.ClsMensaje;
 import Clases.ClsVotante;
 import Controladores.CtlCandidato;
+import Controladores.CtlEleccion;
 import Controladores.CtlVotante;
 import java.util.LinkedList;
 import javax.swing.DefaultComboBoxModel;
@@ -20,19 +22,24 @@ import javax.swing.table.DefaultTableModel;
  * @author Usuario
  */
 public class FrameVotar extends javax.swing.JFrame {
+    
+    
+    CtlEleccion controladorEleccion;   
+    LinkedList<ClsEleccion> elecciones;
+    
 
     CtlVotante controladorVotante;
     CtlCandidato controlador;
-    FrameGestorCandidato votacion = new FrameGestorCandidato(); 
-    //LinkedList<ClsCandidato> candidatos;
+    FrameGestorCandidato votacion = new FrameGestorCandidato();
     
-    //private final CtlVotante controladorVotante;
+    
     public FrameVotar() {
         initComponents();
         this.controladorVotante = new CtlVotante();
         this.controlador = new CtlCandidato();
         this.obtenerAnios();        
-     
+        
+        this.controladorEleccion = new CtlEleccion();
     
     }
     public void obtenerAnios(){
@@ -45,7 +52,6 @@ public class FrameVotar extends javax.swing.JFrame {
             model.addElement(anio);
         }
 
-        // setting model with new data
         this.comboAnio.setModel(model);
 
     }
@@ -89,13 +95,13 @@ public class FrameVotar extends javax.swing.JFrame {
 
         tablaVotosElecciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Candidato", "Partido"
+                "Id", "Candidato", "Partido"
             }
         ));
         tablaVotosElecciones.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -145,25 +151,24 @@ public class FrameVotar extends javax.swing.JFrame {
                 .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonComprobarCedula)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoComprobarCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(botonVotar))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(comboAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(botonVotar)
-                                .addGap(103, 103, 103))))))
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(campoComprobarCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(botonComprobarCedula))
+                                    .addComponent(jLabel2))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(comboAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,31 +183,40 @@ public class FrameVotar extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoComprobarCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonVotar)
-                    .addComponent(comboAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonComprobarCedula)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                    .addComponent(botonComprobarCedula))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(botonVotar)
+                        .addGap(83, 83, 83))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonVotarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVotarActionPerformed
-       /* int column = 0;
+        
+        int column = 0;
         int row = this.tablaVotosElecciones.getSelectedRow();
         String candidato = this.tablaVotosElecciones.getModel().getValueAt(row, column).toString();
+        String elecciones = this.comboAnio.getSelectedItem().toString();
+        String votante = this.campoComprobarCedula.getText();
 
-        ClsMensaje mensaje = this.controladorEleccion.EliminarEleccion(idVotante);
+        ClsMensaje mensaje = this.controlador.Votos(candidato,elecciones,votante);
 
         if (mensaje.getTipo().equals(mensaje.OK)) {
-            this.ObtenerElecciones();
+            //this.obtenerAnios();
+            
+            this.dispose();
         }
         
-        JOptionPane.showMessageDialog(rootPane, mensaje.getDescripcion());*/
+        JOptionPane.showMessageDialog(rootPane, mensaje.getDescripcion());
+        
     }//GEN-LAST:event_botonVotarActionPerformed
 
     private void campoComprobarCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoComprobarCedulaActionPerformed
@@ -215,31 +229,46 @@ public class FrameVotar extends javax.swing.JFrame {
 
     private void botonComprobarCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonComprobarCedulaActionPerformed
         
-        
         String numeroDocumento = campoComprobarCedula.getText();
-        
-        
+        String anio = this.comboAnio.getSelectedItem().toString();
+            
         boolean mensaje = this.controladorVotante.ObtenerCedulaVotante(numeroDocumento);
         boolean mensaje1 = this.controladorVotante.ComprobarVotante(numeroDocumento);
         
         System.out.println(mensaje);
         System.out.println(mensaje1);
+        
         if (mensaje & !mensaje1 ) {
            
+           this.comboAnio.disable();
            JOptionPane.showMessageDialog(null, "Habilitado para votar");
            DefaultTableModel model = (DefaultTableModel) this.tablaVotosElecciones.getModel();
+           
+           LinkedList<ClsCandidato> lista = this.controladorEleccion.ObtenerCandidatosEleccion(anio);
+                
 
             model.setRowCount(0);
 
-            for (ClsCandidato candidato : votacion.candidatos) {
+            for (ClsCandidato candidato : lista) {
 
-            Object[] row = {candidato.getNombre(), candidato.getPartidoPolitico()};
+            Object[] row = {candidato.getNumeroDocumento(), candidato.getNombre(), candidato.getPartidoPolitico()};
             model.addRow(row);
         }
             
             }else{
-           JOptionPane.showMessageDialog(null, "No se encontro la cedula");
+           JOptionPane.showMessageDialog(null, "No esta habilitado para votar");
             }
+        
+        
+            
+           // int column = 0;
+            //int row = 
+           
+           
+
+           
+            
+        
         
     }//GEN-LAST:event_botonComprobarCedulaActionPerformed
 
@@ -285,6 +314,7 @@ public class FrameVotar extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonComprobarCedula;

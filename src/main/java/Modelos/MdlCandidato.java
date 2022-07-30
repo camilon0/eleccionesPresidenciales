@@ -171,4 +171,37 @@ public ClsMensaje EliminarCandidato(String idCandidato){
         }
 
     }
+    
+    public ClsMensaje Votos(String candidato, String elecciones, String votante) {
+
+        ClsMensaje mensaje = new ClsMensaje();
+
+        try {
+
+            String sql = "INSERT INTO tbl_votos VALUES(null, ?, ?, ?, now()) ";
+
+            PreparedStatement sentencia = this.jdbc.conexion.prepareStatement(sql);
+            sentencia.setString(1, elecciones);
+            sentencia.setString(2, candidato);
+            sentencia.setString(3, votante);
+           
+            int resultado = sentencia.executeUpdate();
+            if (resultado == 1) {
+                mensaje.CambiarMensaje(mensaje.OK, "Su voto a sido ingresado");
+
+            } else {
+
+                mensaje.CambiarMensaje(mensaje.ERROR, "Error no encontrado");
+
+            }
+            return mensaje;
+
+        } catch (Exception e) {
+
+            mensaje.CambiarMensaje(mensaje.ERROR, "Excepción: " + e.getMessage());
+
+            return mensaje;
+        }
+
+    }    
 }
